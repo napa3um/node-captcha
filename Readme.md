@@ -17,7 +17,7 @@ via npm:
 	app.configure(function(){
 	...
 		app.use(app.router);
-		*app.use(captcha('/captcha.jpg'));*
+		app.use(captcha('/captcha.jpg')); // url for captcha jpeg
 		app.use(express.static(__dirname + '/public'));
 	...
 
@@ -28,7 +28,7 @@ via npm:
 ## Check captcha:
 
 	app.post('/user/create', function(req, res, next){
-		if(req.body.captcha != *req.session.captcha*)
+		if(req.body.captcha != req.session.captcha) // text from captcha stored into session
 			return next(new Error('Captcha stop!'));
 	...
 
