@@ -1,4 +1,3 @@
-
 # Captcha
 
 Simple captcha.
@@ -32,3 +31,4 @@ via npm:
 			return next(new Error('Captcha stop!'));
 	...
 
+PS: thanks for more detailed description: http://stackoverflow.com/questions/9487844/nodejs-how-to-use-node-captcha-module
