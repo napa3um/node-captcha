@@ -20,6 +20,16 @@ via npm:
 		app.use(express.static(__dirname + '/public'));
 	...
 
+## Color Options
+
+You can setup colors with an object, instead of just URL, like this:
+
+	...
+	app.use(captcha({url: '/captcha.jpg', fg:'#0064cd', bg: '#049cdb', interference: '#049cdb'}));
+	...
+
+All color options are optional, and you should probably set interference to teh same color as fg or bg, to make it harder for bots to read.
+
 ## Render captcha:
 
 	<img src="/captcha.jpg" />
