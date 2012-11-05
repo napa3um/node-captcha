@@ -1,18 +1,24 @@
 var Canvas = require('canvas');
 
 module.exports = function(url){
+	options={};
+	if (typeof url === "object"){
+		options=url;
+		url = url.url;
+	}
+
 	return function(req, res, next){
 		if(req.url != url)
 			return next();
-		
+
 		var canvas = new Canvas(250, 150);
 		var ctx = canvas.getContext('2d');
 		ctx.antialias = 'gray';
-		ctx.fillStyle = "rgb(255,200,150)";
+		ctx.fillStyle = options.bg || "rgb(255,200,150)";
 		ctx.fillRect(0, 0, 250, 150);
-		ctx.fillStyle = "rgb(0,100,100)";
+		ctx.fillStyle = options.fg || "rgb(0,100,100)";
 		ctx.lineWidth = 8;
-		ctx.strokeStyle = "rgb(0,100,100)";
+		ctx.strokeStyle = options.interference || options.fg || "rgb(0,100,100)";
 		ctx.font = '80px sans';
 
 		for (var i = 0; i < 2; i++) {
@@ -37,6 +43,6 @@ module.exports = function(url){
 		canvas.toBuffer(function(err, buf) {
 			req.session.captcha = text;
 			res.end(buf);
-		});		
+		});
 	};
 };
