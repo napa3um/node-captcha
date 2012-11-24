@@ -25,7 +25,7 @@ via npm:
 You can setup colors with an object, instead of just URL, like this (CSS-notation of color):
 
 	...
-	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,200)' }));
+	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,2}));
 	...
 
 All color options are optional.
