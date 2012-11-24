@@ -1,44 +1,38 @@
 # Captcha
 
-Simple captcha.
+Simple captcha for Connect/Express.
 
 ## Installation
 
-via npm:
+Via npm:
 
 	$ npm install captcha
 
-## Application init:
+## Usage (for Express 3)
 
-	...
-	var captcha = require('captcha');
-	...
-	app.configure(function(){
-	...
-		app.use(app.router);
-		app.use(captcha('/captcha.jpg')); // url for captcha jpeg
-		app.use(express.static(__dirname + '/public'));
-	...
+```javascript
+var express = require('express');
+var captcha = require('captcha');
 
-## Color Options
+var app = express();
 
-You can setup colors with an object, instead of just URL, like this (CSS-notation of color):
+app.configure(function(){
+    app.use(express.bodyParser());
+	app.use(express.cookieParser());
+	app.use(express.cookieSession({ secret: 'keyboard-cat' }));
+	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,200)' })); // captcha params
+});
 
-	...
-	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,2}));
-	...
+app.get('/', function(req, res){
+	res.type('html');
+	res.end('<img src="/captcha.jpg"/><form action="/login" method="post"><input type="text" name="digits"/></form>'); // captcha render
+});
 
-All color options are optional.
+app.post('/login', function(req, res){
+	res.type('html');
+	res.end('CONFIRM: ' + (req.body.digits == req.session.captcha)); // captcha verify
+});
 
-## Render captcha:
-
-	<img src="/captcha.jpg" />
-
-## Check captcha:
-
-	app.post('/user/create', function(req, res, next){
-		if(req.body.captcha != req.session.captcha) // text from captcha stored into session
-			return next(new Error('Captcha stop!'));
-	...
-
-PS: thanks for more detailed description: http://stackoverflow.com/questions/9487844/nodejs-how-to-use-node-captcha-module
+app.listen(8080);
+console.log('Web server started.');
+```
