@@ -3,7 +3,6 @@ var Canvas = require('canvas');
 module.exports = function(params){
     if(typeof params == 'string')
         params = { url: params };
-
     params.color = params.color || 'rgb(0,100,100)';
     params.background = params.background || 'rgb(255,200,150)';
 
@@ -40,7 +39,8 @@ module.exports = function(params){
 //	    ctx.fillText(text, 70, 145);
 
 		canvas.toBuffer(function(err, buf) {
-			req.session.captcha = text;
+            if(req.session)
+			    req.session.captcha = text;
 			res.end(buf);
 		});
 	};
