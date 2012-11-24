@@ -1,30 +1,29 @@
 var Canvas = require('canvas');
 
-module.exports = function(url){
-	options={};
-	if (typeof url === "object"){
-		options=url;
-		url = url.url;
-	}
+module.exports = function(params){
+    if(typeof params == 'string')
+        params = { url: params };
+
+    params.color = params.color || 'rgb(0,100,100)';
+    params.background = params.background || 'rgb(255,200,150)';
 
 	return function(req, res, next){
-		if(req.url != url)
+		if(req.url != params.url)
 			return next();
 
 		var canvas = new Canvas(250, 150);
 		var ctx = canvas.getContext('2d');
 		ctx.antialias = 'gray';
-		ctx.fillStyle = options.bg || "rgb(255,200,150)";
+		ctx.fillStyle = params.background;
 		ctx.fillRect(0, 0, 250, 150);
-		ctx.fillStyle = options.fg || "rgb(0,100,100)";
+		ctx.fillStyle = params.color;
 		ctx.lineWidth = 8;
-		ctx.strokeStyle = options.interference || options.fg || "rgb(0,100,100)";
+		ctx.strokeStyle = params.color;
 		ctx.font = '80px sans';
 
 		for (var i = 0; i < 2; i++) {
 			ctx.moveTo(20, Math.random() * 150);
-			ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150,
-					230, Math.random() * 150);
+			ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150, 230, Math.random() * 150);
 			ctx.stroke();
 		}
 
