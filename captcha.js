@@ -8,27 +8,29 @@ module.exports = function(params){
     params.lineWidth = params.lineWidth || 8;
     params.fontSize = params.fontSize || 80;
     params.codeLength = params.codeLength || 6;
+    params.canvasWidth = params.canvasWidth || 250;
+    params.canvasHeight = params.canvasHeight || 150;
 
 
-	return function(req, res, next){
-		if(req.path != params.url)
-			return next();
+    return function(req, res, next){
+        if(req.path != params.url)
+            return next();
 
-		var canvas = new Canvas(250, 150);
-		var ctx = canvas.getContext('2d');
-		ctx.antialias = 'gray';
-		ctx.fillStyle = params.background;
-		ctx.fillRect(0, 0, 250, 150);
-		ctx.fillStyle = params.color;
-		ctx.lineWidth = params.lineWidth;
-		ctx.strokeStyle = params.color;
-		ctx.font = params.fontSize+'px sans';
+        var canvas = new Canvas(params.canvasWidth , params.canvasHeight);
+        var ctx = canvas.getContext('2d');
+        ctx.antialias = 'gray';
+        ctx.fillStyle = params.background;
+        ctx.fillRect(0, 0, 250, 150);
+        ctx.fillStyle = params.color;
+        ctx.lineWidth = params.lineWidth;
+        ctx.strokeStyle = params.color;
+        ctx.font = params.fontSize+'px sans';
 
-		for (var i = 0; i < 2; i++) {
-			ctx.moveTo(20, Math.random() * 150);
-			ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150, 230, Math.random() * 150);
-			ctx.stroke();
-		}
+        for (var i = 0; i < 2; i++) {
+            ctx.moveTo(20, Math.random() * 150);
+            ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150, 230, Math.random() * 150);
+            ctx.stroke();
+        }
 
 		var text = ('' + Math.random()).substr(3, params.codeLength);
 
@@ -44,8 +46,8 @@ module.exports = function(params){
 
 		canvas.toBuffer(function(err, buf) {
             if(req.session)
-			    req.session.captcha = text;
-			res.end(buf);
-		});
-	};
+                req.session.captcha = text;
+            res.end(buf);
+        });
+    };
 };

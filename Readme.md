@@ -43,9 +43,11 @@ console.log('Web server started.');
        "url":"/captcha.jpg",
        "color":"#ffffff",// can be omitted, default 'rgb(0,100,100)'
        "background":"#000000",// can be omitted, default 'rgb(255,200,150)'
-       "lineWidth" : 6 // can be omitted, default 8
-       "fontSize" : 60 // can be omitted, default 80
-       "codeLength" : 6 // length of code, can be omitted, default 6
+       "lineWidth" : 6, // can be omitted, default 8
+       "fontSize" : 60, // can be omitted, default 80
+       "codeLength" : 6, // length of code, can be omitted, default 6
+       "canvasWidth" : 250,// can be omitted, default 250
+       "canvasHeight" : 150,// can be omitted, default 150
     }
     app.use(captcha(params)); // captcha params
 ```
