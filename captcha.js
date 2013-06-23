@@ -5,6 +5,10 @@ module.exports = function(params){
         params = { url: params };
     params.color = params.color || 'rgb(0,100,100)';
     params.background = params.background || 'rgb(255,200,150)';
+    params.lineWidth = params.lineWidth || 8;
+    params.fontSize = params.fontSize || 80;
+    params.codeLength = params.codeLength || 6;
+
 
 	return function(req, res, next){
 		if(req.path != params.url)
@@ -16,9 +20,9 @@ module.exports = function(params){
 		ctx.fillStyle = params.background;
 		ctx.fillRect(0, 0, 250, 150);
 		ctx.fillStyle = params.color;
-		ctx.lineWidth = 8;
+		ctx.lineWidth = params.lineWidth;
 		ctx.strokeStyle = params.color;
-		ctx.font = '80px sans';
+		ctx.font = params.fontSize+'px sans';
 
 		for (var i = 0; i < 2; i++) {
 			ctx.moveTo(20, Math.random() * 150);
@@ -26,7 +30,7 @@ module.exports = function(params){
 			ctx.stroke();
 		}
 
-		var text = ('' + Math.random()).substr(3, 6);
+		var text = ('' + Math.random()).substr(3, params.codeLength);
 
 		for (i = 0; i < text.length; i++) {
 			ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, 100);
