@@ -26,7 +26,7 @@ module.exports = function(params){
 			ctx.stroke();
 		}
 
-		var text = ('' + Math.random()).substr(3, 6);
+		var text = params.text || ('' + Math.random()).substr(3, 6);
 
 		for (i = 0; i < text.length; i++) {
 			ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, 100);
