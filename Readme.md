@@ -20,12 +20,12 @@ app.configure(function(){
     app.use(express.bodyParser());
 	app.use(express.cookieParser());
 	app.use(express.cookieSession({ secret: 'keyboard-cat' }));
-	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,200)' })); // captcha params
+	app.use(captcha({ url: '/captcha.png', color:'#0064cd', background: 'rgb(20,30,200)' })); // captcha params
 });
 
 app.get('/', function(req, res){
 	res.type('html');
-	res.end('<img src="/captcha.jpg"/><form action="/login" method="post"><input type="text" name="digits"/></form>'); // captcha render
+	res.end('<img src="/captcha.png"/><form action="/login" method="post"><input type="text" name="digits"/></form>'); // captcha render
 });
 
 app.post('/login', function(req, res){
