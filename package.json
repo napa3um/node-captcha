@@ -1,10 +1,21 @@
 {
-  "name": "captcha",
-  "description": "Simple captcha middleware for Connect",
-  "version": "0.0.4",
-  "author": "napa3um <napa3um@gmail.com>",
-  "dependencies": { "canvas": ">= 0.9.0" },
-  "main": "./captcha.js",
-  "engines": { "node": ">= 0.1.98" }
+    "name": "captcha",
+    "description": "Simple captcha middleware for Connect",
+    "version": "0.0.5",
+    "author": "napa3um <napa3um@gmail.com>",
+    "dependencies": {
+        "canvas": "1.0.4"
+    },
+    "main": "./captcha.js",
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.4.x"
+    },
+    "repository":{
+        "type":"git",
+        "url":"git@github.com:napa3um/node-captcha.git"
+    },
+    "license":"MIT",
+    "readmeFilename":"Readme.md"
 }
 
