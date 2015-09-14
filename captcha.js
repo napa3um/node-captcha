@@ -36,7 +36,7 @@ module.exports = function(params){
     var marginY = (params.canvasWidth - (fontWidth * text.length)) / 2;
 
     if (marginY < 0) {
-        marginY = params.canvasWidth * 0.05;
+        marginY = 0;
         fontWidth = (params.canvasWidth * 0.9) / text.length;
     }
 
