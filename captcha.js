@@ -13,38 +13,33 @@ module.exports = function(params){
 
 
     return function(req, res, next){
-        if(req.path != params.url)
+        if(req.path.replace(/\?.*$/, '') != params.url)
             return next();
 
         var canvas = new Canvas(params.canvasWidth , params.canvasHeight);
         var ctx = canvas.getContext('2d');
         ctx.antialias = 'gray';
         ctx.fillStyle = params.background;
-        ctx.fillRect(0, 0, 250, 150);
+        ctx.fillRect(0, 0, params.canvasWidth, params.canvasHeight);
         ctx.fillStyle = params.color;
         ctx.lineWidth = params.lineWidth;
         ctx.strokeStyle = params.color;
         ctx.font = params.fontSize+'px sans';
 
         for (var i = 0; i < 2; i++) {
-            ctx.moveTo(20, Math.random() * 150);
-            ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150, 230, Math.random() * 150);
+            ctx.moveTo(Math.floor(0.08*params.canvasWidth), Math.random() * params.canvasHeight);
+            ctx.bezierCurveTo(Math.floor(0.32*params.canvasWidth), Math.random() * params.canvasHeight, Math.floor(1.07*params.canvasHeight), Math.random() * params.canvasHeight, Math.floor(0.92*params.canvasWidth), Math.random() * params.canvasHeight);
             ctx.stroke();
         }
 
-		var text = params.text || ('' + Math.random()).substr(3, params.codeLength);
+                var text = params.text || ('' + Math.random()).substr(3, params.codeLength);
 
       for (i = 0; i < text.length; i++) {
-			ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, 100);
-			ctx.fillText(text.charAt(i), 0, 0);
-		}
+                        ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, Math.floor(0.375*params.fontSize) * i + Math.floor(0.25*params.fontSize), Math.floor(1.25*params.fontSize));
+                        ctx.fillText(text.charAt(i), 0, 0);
+                }
 
-//	    ctx.setTransform(1, 0, 0, 1, 0, 0);
-//	    ctx.font = '25px sans';
-//	    ctx.fillStyle = "rgb(255,255,255)";
-//	    ctx.fillText(text, 70, 145);
-
-		canvas.toBuffer(function(err, buf) {
+                canvas.toBuffer(function(err, buf) {
             if(req.session)
                 req.session.captcha = text;
             res.type('jpg');
