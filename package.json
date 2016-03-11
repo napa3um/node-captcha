@@ -1,7 +1,7 @@
 {
     "name": "captcha",
     "description": "Simple captcha middleware for Connect",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "author": "napa3um <napa3um@gmail.com>",
     "dependencies": {
         "canvas": "1.0.4"
