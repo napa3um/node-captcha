@@ -18,7 +18,7 @@ app.get(captchaUrl, captcha.image())
 
 app.get('/', (req, res) => {
     res.type('html')
-	res.end(`
+    res.end(`
         <img src="${ captchaUrl }"/>
         <form action="/login" method="post">
             <input type="text" name="${ captchaFieldName }"/>
@@ -28,12 +28,12 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-	res.type('html')
-	res.end(`
-        <p>CAPTCHA VALID: ${ captcha.check(req.body[captchaFieldName], req.cookies[captchaCookieName]) }</p>
+    res.type('html')
+    res.end(`
+        <p>CAPTCHA VALID: ${ captcha.check(req.body[captchaFieldName], req.cookies[captchaCookieName])}</p>
     `)
 })
 
 app.listen(8080, () => {
-  console.log('server started')
+    console.log('server started')
 })
