@@ -1,3 +1,10 @@
+0.1.0 / 2017-04-20
+==================
+
+  * New API (WARNING!)
+  * support of multiple captcha instances per project
+  * JPEG instead of PNG
+
 0.0.5 / 2013-06-23
 ==================
 
