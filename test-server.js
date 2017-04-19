@@ -4,17 +4,17 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
-const captcha = require('./captcha')
+const captchaUrl = '/captcha.jpg'
+const captchaCookieName = 'captcha'
+const captchaFieldName = 'captcha'
+
+const captcha = require('./captcha').create({ cookie: captchaCookieName })
 
 const app = express()
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-const captchaUrl = '/captcha.jpg'
-const captchaCookieName = 'captcha'
-const captchaFieldName = 'captcha'
-
-app.get(captchaUrl, captcha.image({ cookie: captchaCookieName }))
+app.get(captchaUrl, captcha.image())
 
 app.get('/', (req, res) => {
     res.type('html')

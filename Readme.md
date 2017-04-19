@@ -1,6 +1,6 @@
 # Captcha
 
-Simple captcha for Connect/Express.
+Simple captcha for Express.
 
 ## Installation
 
@@ -8,46 +8,46 @@ Via npm:
 
 	$ npm install captcha
 
-## Usage (for Express 3)
+## Usage (for Express 4)
 
 ```javascript
-var express = require('express');
-var captcha = require('captcha');
+'use strict'
 
-var app = express();
+const express = require('express')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
-app.configure(function(){
-    app.use(express.bodyParser());
-	app.use(express.cookieParser());
-	app.use(express.cookieSession({ secret: 'keyboard-cat' }));
-	app.use(captcha({ url: '/captcha.jpg', color:'#0064cd', background: 'rgb(20,30,200)' })); // captcha params
-});
+const captchaUrl = '/captcha.jpg'
+const captchaCookieName = 'captcha'
+const captchaFieldName = 'captcha'
 
-app.get('/', function(req, res){
-	res.type('html');
-	res.end('<img src="/captcha.jpg"/><form action="/login" method="post"><input type="text" name="digits"/></form>'); // captcha render
-});
+const captcha = require('./captcha').create({ cookie: captchaCookieName })
 
-app.post('/login', function(req, res){
-	res.type('html');
-	res.end('CONFIRM: ' + (req.body.digits == req.session.captcha)); // captcha verify
-});
+const app = express()
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }))
 
-app.listen(8080);
-console.log('Web server started.');
-```
+app.get(captchaUrl, captcha.image())
 
-## Full list of parameters
-```javascript
-    var params={
-       "url":"/captcha.jpg",
-       "color":"#ffffff",// can be omitted, default 'rgb(0,100,100)'
-       "background":"#000000",// can be omitted, default 'rgb(255,200,150)'
-       "lineWidth" : 6, // can be omitted, default 8
-       "fontSize" : 60, // can be omitted, default 80
-       "codeLength" : 6, // length of code, can be omitted, default 6
-       "canvasWidth" : 250,// can be omitted, default 250
-       "canvasHeight" : 150,// can be omitted, default 150
-    }
-    app.use(captcha(params)); // captcha params
+app.get('/', (req, res) => {
+    res.type('html')
+	res.end(`
+        <img src="${ captchaUrl }"/>
+        <form action="/login" method="post">
+            <input type="text" name="${ captchaFieldName }"/>
+            <input type="submit"/>
+        </form>
+    `)
+})
+
+app.post('/login', (req, res) => {
+	res.type('html')
+	res.end(`
+        <p>CAPTCHA VALID: ${ captcha.check(req.body[captchaFieldName], req.cookies[captchaCookieName]) }</p>
+    `)
+})
+
+app.listen(8080, () => {
+  console.log('server started')
+})
 ```
