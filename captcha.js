@@ -64,7 +64,9 @@ class Captcha {
         if (req.session === undefined) {
             throw Error('node-captcha requires express-session!')
         }
-        return req.session[this.params.cookie] === text
+        const res = req.session[this.params.cookie] === text
+        req.session[this.params.cookie] = null
+        return res
     }
 }
 
