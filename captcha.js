@@ -1,7 +1,7 @@
 'use strict'
 
-const crypto = require('crypto')
 const Canvas = require('canvas')
+const crypto = require('crypto')
 
 class Captcha {
     constructor(params) {
@@ -46,12 +46,11 @@ class Captcha {
                 ctx.fillText(char, 0, 0)
             })
 
-            // send cookie:
-            const hash = crypto.createHash(this.params.cryptoAlg)
-            hash.update(this.params.cryptoPass)
-            hash.update(text)
-            
-            res.cookie(this.params.cookie, hash.digest('hex'))
+            // save text:
+            if (req.session === undefined) {
+                throw Error('node-captcha requires express-session!')
+            }
+            req.session[this.params.cookie] = text
 
             // send image:
             res.type('jpg')
@@ -61,11 +60,11 @@ class Captcha {
         }
     }
 
-    check(text, cookieData) {
-        const hash = crypto.createHash(this.params.cryptoAlg)
-        hash.update(this.params.cryptoPass)
-        hash.update(text)
-        return hash.digest('hex') === cookieData
+    check(req, text) {
+        if (req.session === undefined) {
+            throw Error('node-captcha requires express-session!')
+        }
+        return req.session[this.params.cookie] === text
     }
 }
 

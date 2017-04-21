@@ -1,7 +1,7 @@
 {
   "name": "captcha",
   "description": "Simple captcha middleware for Express",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "napa3um <napa3um@gmail.com>",
   "dependencies": {
     "canvas": "^1.6.5"
@@ -15,7 +15,7 @@
   "readmeFilename": "Readme.md",
   "devDependencies": {
     "body-parser": "^1.17.1",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "express-session": "^1.15.2"
   }
 }
