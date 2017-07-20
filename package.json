@@ -1,15 +1,16 @@
 {
-  "name": "captcha",
-  "description": "Simple captcha middleware for Express",
-  "version": "0.1.3",
+  "name": "@visualead/captcha",
+  "description": "Simple captcha middleware for Express or Restify",
+  "version": "2.0.0",
   "author": "napa3um <napa3um@gmail.com>",
   "dependencies": {
-    "canvas": "^1.6.5"
+    "canvas": "^1.6.5",
+    "js-sha256": "^0.6.0"
   },
   "main": "./captcha.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:napa3um/node-captcha.git"
+    "url": "git@github.com:Visualead/node-captcha.git"
   },
   "license": "MIT",
   "readmeFilename": "Readme.md",
