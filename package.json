@@ -1,7 +1,7 @@
 {
   "name": "@visualead/captcha",
   "description": "Simple captcha middleware for Express or Restify",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "author": "napa3um <napa3um@gmail.com>",
   "dependencies": {
     "canvas": "^1.6.5",
