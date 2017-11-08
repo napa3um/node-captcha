@@ -1,3 +1,10 @@
+0.1.4 / 2017-11-08
+==================
+ 
+ * Update Readme with Options
+ * Add Letter Spacing Option
+
+
 0.1.3 / 2017-04-21
 ==================
 

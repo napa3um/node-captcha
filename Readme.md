@@ -57,3 +57,21 @@ app.listen(8080, () => {
     console.log('server started')
 })
 ```
+
+## Options
+
+   - cookie = default('captcha')
+   - cryptoAlg = default('sha1')
+   - cryptoPass = default(crypto.randomBytes(32))
+   - color = default('rgb(0,100,100)')
+   - background = default('rgb(255,200,150)')
+   - lineWidth = default(8)
+   - fontSize = default(80)
+   - codeLength = default(6)
+   - canvasWidth = default(250)
+   - canvasHeight = default(150)
+   - letterSpacing = default(0.375)
+   
+
+    var nodecaptcha = require('./captcha')
+    var captcha = nodecaptcha.create({ cookie: 'captcha',canvasHeight: 200,letterSpacing:10})
