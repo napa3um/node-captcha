@@ -54,15 +54,15 @@ class Captcha {
             res.type('jpg');
             res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
             res.header('Expires', 'Sun, 19 May 1984 02:00:00 GMT');
-            canvas.jpegStream().pipe(res)
-        }
+            canvas.jpegStream().pipe(res);
+        };
     }
 
     check(req, text) {
         if (req.session === undefined) throw Error('node-captcha requires express-session!');
         const res = req.session[this.params.cookie] === text;
         req.session[this.params.cookie] = null;
-        return res
+        return res;
     }
 }
 
