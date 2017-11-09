@@ -38,11 +38,18 @@ app.get(captchaUrl, captcha.image())
 app.get('/', (req, res) => {
     res.type('html')
     res.end(`
-        <img src="${ captchaUrl }"/>
+        <img id="image" src="${ captchaUrl }"/>
         <form action="/login" method="post">
+            <a id="reset-button">Reset</a>
             <input type="text" name="${ captchaFieldName }"/>
             <input type="submit"/>
         </form>
+        <script>
+            document.getElementById('reset-button').addEventListener('click',function(){
+                document.getElementById('image').setAttribute('src',"")
+                document.getElementById('image').setAttribute('src', '${ captchaUrl }')
+            })
+        </script>
     `)
 })
 
