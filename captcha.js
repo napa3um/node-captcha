@@ -15,7 +15,6 @@ class Captcha {
         params.codeLength = params.codeLength || 6
         params.canvasWidth = params.canvasWidth || 250
         params.canvasHeight = params.canvasHeight || 150
-
         this.params = params
     }
 
@@ -42,7 +41,14 @@ class Captcha {
             // draw text:
             const text = ('' + crypto.randomBytes(4).readUIntBE(0, 4)).substr(2, this.params.codeLength)
             text.split('').forEach((char, i) => {
-                ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, Math.floor(0.375 * this.params.fontSize) * i + Math.floor(0.25 * this.params.fontSize), Math.floor(1.25 * this.params.fontSize))
+                ctx.setTransform(
+                    Math.random() * 0.5 + 1, 
+                    Math.random() * 0.4, 
+                    Math.random() * 0.4, 
+                    Math.random() * 0.5 + 1, 
+                    Math.floor(i * this.params.canvasWidth/text.length),
+                    Math.floor(1.25 * this.params.fontSize)
+                )
                 ctx.fillText(char, 0, 0)
             })
 
