@@ -49,7 +49,7 @@ class Captcha {
                     Math.random() * 0.4, 
                     Math.random() * 0.5 + 1, 
                     Math.floor(pad + i * drawWidth/text.length),
-                    Math.floor(1.25 * this.params.fontSize)
+                    Math.floor(1.1 * this.params.fontSize)
                 )
                 ctx.fillText(char, 0, 0)
             })
