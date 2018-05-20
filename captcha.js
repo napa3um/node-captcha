@@ -40,13 +40,15 @@ class Captcha {
 
             // draw text:
             const text = ('' + crypto.randomBytes(4).readUIntBE(0, 4)).substr(2, this.params.codeLength)
+            var pad = (this.params.canvasWidth/text.length)/2;
+            var drawWidth = this.params.canvasWidth - (pad*2);
             text.split('').forEach((char, i) => {
                 ctx.setTransform(
                     Math.random() * 0.5 + 1, 
                     Math.random() * 0.4, 
                     Math.random() * 0.4, 
                     Math.random() * 0.5 + 1, 
-                    Math.floor(i * this.params.canvasWidth/text.length),
+                    Math.floor(pad + i * drawWidth/text.length),
                     Math.floor(1.25 * this.params.fontSize)
                 )
                 ctx.fillText(char, 0, 0)
